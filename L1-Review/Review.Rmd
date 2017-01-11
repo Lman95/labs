@@ -10,19 +10,25 @@ output: html_document
 #https://www.healthdata.gov/dataset/deaths-pnuemonia-and-influneza-and-all-deaths-state-and-region-national-center-health
 
 #We will be requiring knitr, dplyr, and ggplot2
-
-
+library(knitr)
+library(dplyr)
+library(ggplot2)
 
 #Read in the dataset
-
+flu.deaths <- read.csv("flu_deaths.csv")
 
 
 #Handle NA values
-
+flu.deaths[is.na(flu.deaths)] <- 0
 
 
 
 #Create one summary table and one plot about two different aspects of the dataset. Include a small paragraph explaining what each table/plot is showing.
+summary <- filter(flu.deaths, geoid == "State", season == "2015-16") %>% 
+           group_by(State, season) %>% 
+           summarize(deaths_2015_16 = sum(Deaths.from.pneumonia.and.influenza)) %>% 
+           select(State, deaths_2015_16)
+kable(summary)
 
 ```
 
