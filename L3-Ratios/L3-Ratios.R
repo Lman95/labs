@@ -50,7 +50,10 @@ risk.ratio <- cbt.ratio/cont.ratio
 #Write a function that allows you to perform your analysis based on what kind of treatment you want 
 #that returns the appropriate calculation
 
-
+Function <- function(treat) {
+  return(
+    nrow(filter(ano, Treat == treat) %>% filter(Postwt < Prewt)) / nrow(filter(ano, Treat == "Cont") %>% filter(Postwt < Prewt)))
+}
 
 
 
